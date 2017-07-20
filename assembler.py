@@ -37,7 +37,7 @@ commentre = re.compile(r"""^(?P<important>[^#]*)(?P<comment>#.*)?$""")
 alnumunderre = re.compile(r"""^\w+$""")
 
 #or and add sub slt sltu addu subu
-rtype_re  = re.compile(r'''^(?P<instr>(or|and|add|mult|slt|sll|srl|xor))\s+(?P<rd>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<rs>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<rt>\$(0|zero|v0|s[0-2]|a0|sp|ra))$''')
+rtype_re  = re.compile(r'''^(?P<instr>(or|and|add|addu|mult|slt|sll|srl))\s+(?P<rd>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<rs>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<rt>\$(0|zero|v0|s[0-2]|a0|sp|ra))$''')
 #multu divu
 mult_re    = re.compile(r'''^(?P<instr>(mult))\s+(?P<rs>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<rt>\$(0|zero|v0|s[0-2]|a0|sp|ra))$''')
 #mfhi mflo
@@ -45,7 +45,7 @@ mf_re    = re.compile(r'''^(?P<instr>(mfhi|mflo))\s+(?P<rd>\$(0|zero|v0|s[0-2]|a
 #sll srl sra
 shift_re  = re.compile(r'''^(?P<instr>(sll|srl|sra))\s+(?P<rd>\$(0|zero|at|v[0,1]|a[0-3]|t[0-9]|s[0-7]|k[0-1]|gp|fp|sp|ra))\s+(?P<rt>\$(0|zero|at|v[0,1]|a[0-3]|t[0-9]|s[0-7]|k[0-1]|gp|fp|sp|ra))\s+(?P<immed>-?(0x)?[0-9a-fA-F]+)$''')
 #ori addi addiu andi
-immed_re  = re.compile(r'''^(?P<instr>(ori|addi|andi|slti|jr))\s+(?P<rt>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<rs>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<immed>-?(0x)?[0-9a-fA-F]+)$''')
+immed_re  = re.compile(r'''^(?P<instr>(ori|addi|andi|addiu|slti|jr))\s+(?P<rt>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<rs>\$(0|zero|v0|s[0-2]|a0|sp|ra))\s+(?P<immed>-?(0x)?[0-9a-fA-F]+)$''')
 #lui
 lui_re    = re.compile(r'''^(?P<instr>lui)\s+(?P<immed>-?(0x)?[0-9a-fA-F]+)$''')
 #sw lw sb lb lbu sh lhu swinc
@@ -68,15 +68,16 @@ opcodes = {
   'beq':0x4,
   'bne':0x5,
   'addi':0x6,
-  'slti':0x7,
-  'andi':0x8,
-  'ori':0x9,
-#  'lb':0xa,
-  'lh':0xa,
-#  'sb':0xc,
-  'sh':0xb,
-  'mfhi':0xc,
-  'mflo':0xd
+  'addiu':0x7,
+  'slti':0x8,
+  'andi':0x9,
+  'ori':0xa,
+  #'lb':0xb,
+  'lh':0xb,
+  #'sb':0xc,
+  'sh':0xc,
+  'mfhi':0xd,
+  'mflo':0xe
 }
 
 functs = {
@@ -85,7 +86,7 @@ functs = {
   'add':0x2,
   'and':0x3,
   'or':0x4,
-  'xor':0x5,
+  'addu':0x5,
   'slt':0x6,
   'mult': 0x7,
 }

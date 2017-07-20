@@ -6,7 +6,7 @@ lbl1:	addi $s0 $0 -1
 	bne  $s0 $s2 lbl2
 	andi $s0 $s0 0
         and  $s1 $s1 $s2
-     	xor  $s1 $s1 $s2
+     	addu  $s1 $s1 $s2
         or   $s2 $s1 $s2 
 lbl2:	slt  $a0 $s2 $s1
 	beq  $a0 $0  lbl3
